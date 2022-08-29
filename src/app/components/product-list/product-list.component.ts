@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiDataService } from '../../services/api-data.service'
+import { OrderService } from 'src/app/services/order.service';
 import { Product } from 'src/app/models/product';
+import { Order } from 'src/app/models/order';
 
 @Component({
   selector: 'app-product-list',
@@ -10,12 +12,13 @@ import { Product } from 'src/app/models/product';
 export class ProductListComponent implements OnInit {
 
   products : Product[] = []
-  constructor(private apiDataService : ApiDataService) { }
+  orders : Order[] = []
+  constructor(private apiDataService : ApiDataService, private orderService : OrderService) { }
 
   ngOnInit(): void {
-    this.apiDataService.FetchData().then((res)=>{
-      this.products = res as unknown as Product[]
-    })
+    this.products = this.apiDataService.FetchData() as unknown as Product[]
+
+    this.orders = this.orderService.GetCurrentCart()
   }
   
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/order';
+import { ApiDataService } from 'src/app/services/api-data.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-item',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductItemComponent implements OnInit {
 
-  constructor() { }
+  @Input() 
+  order : Order | null = null
+
+  product : Product | null = null
+
+  constructor(private apiDataService : ApiDataService) { 
+    
+  }
 
   ngOnInit(): void {
+    if(this.order == null)
+      throw "order not found"
+
+    this.product = this.apiDataService.FindProduct(this.order?.id)
   }
 
 }

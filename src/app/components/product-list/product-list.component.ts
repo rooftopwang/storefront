@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiDataService } from '../../services/api-data.service'
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-list',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
 
-  constructor() { }
+  products : Product[] = []
+  constructor(private apiDataService : ApiDataService) { }
 
   ngOnInit(): void {
+    this.apiDataService.FetchData().then((res)=>{
+      this.products = res as unknown as Product[]
+    })
   }
-
+  
 }

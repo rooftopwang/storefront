@@ -10,7 +10,6 @@ export class ApiDataService {
 
   products: Product[] = []
   constructor() { 
-    console.log("initializing products! ")
     try {
       this.products = data as unknown as Product[]
     } catch (e) {

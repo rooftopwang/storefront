@@ -7,11 +7,22 @@ import { Order } from '../models/order';
 })
 export class OrderService {
 
-  orders : Order[] = []
+  products : Product[] = []
+  orders : Order[] = [
+    { id: 1, quantity: 3 },
+    { id: 2, quantity: 5 },
+    { id: 3, quantity: 7 }
+  ]
 
-  constructor() { }
+  constructor() { 
+    
+  }
 
-  AddToCart (product : Product) {
+  GetCurrentCart () : Order[] {
+    return this.orders
+  }
+
+  AddToCart (product : Product) : void {
     let orderFound : number = 0
 
     for (const o of this.orders) {
@@ -29,7 +40,7 @@ export class OrderService {
       })
   }
 
-  WithdrawFromCart (product : Product) {
+  WithdrawFromCart (product : Product) : void {
     let orderFound : number = 0
 
     for (const o of this.orders) {
@@ -44,7 +55,7 @@ export class OrderService {
       alert("duplicate order found")
   }
 
-  UpdateCard (product : Product, quantity : number) {
+  UpdateCard (product : Product, quantity : number) : void {
     let orderFound : number = 0
 
     for (const o of this.orders) {
